@@ -54,46 +54,83 @@ const FileLoader = {
         }
     ]
 };
+const JSLoader = {
+    test: /\.js$/,
+    use: [
+        "babel-loader"
+    ]
+}
 
+
+
+// Client Options
+const partialsEjs = {
+    partsHome: "<%- include('parts/menu') %>",
+    partsCarrito: "<%- include('parts/carrito') %>",
+    partsLoader: "<%- include('parts/loader')  %>",
+};
 
 
 // Client
-const partialsEjs = {
-    partsHome: "<%- include('parts/menu') %>",
-    partsCarrito: "<%- include('parts/carrito') %>"
-}
-const clientOptions = {
-    output: {
-        publicPath: "/",
-        path: path.resolve(__dirname, "../dist"),
-        filename: "public/js/[name].js"
-    }
-}
 const Client = [
     {
-        entry: "./src/client/home.js",
-        ...clientOptions,
-        plugins: [
-            new HTMLWebpackPlugin({
-                template: "src/client/views/home.ejs",
-                filename: "views/home.ejs",
-                templateParameters: partialsEjs
-            })
-        ]
-    },
-    {
-        entry: "./src/client/index.js",
+        entry: {
+            carrito: "./src/client/carrito.js",
+            login: "./src/client/login.js",
+            menu: "./src/client/menu.js",
+            payment: "./src/client/payment.js",
+            product: "./src/client/product.js"
+        },
         output: {
+            publicPath: "/",
             path: path.resolve(__dirname, "../dist"),
-            filename: "public/js/index.js"
+            filename: "public/js/[name].js"
         },
         module: {
             rules: [        
                 FileLoader,
                 CSSLoader,
-                HTMLLoader
+                HTMLLoader,
+                JSLoader
             ]
-        }
+        },
+        plugins: [
+            new HTMLWebpackPlugin({
+                template: "src/client/views/home.ejs",
+                filename: "views/home.ejs",
+                templateParameters: partialsEjs
+            }),
+            new HTMLWebpackPlugin({
+                template: "src/client/views/product.ejs",
+                filename: "views/product.ejs",
+                templateParameters: {
+                    clasification: "<%= clasification %>",
+                    ...partialsEjs
+                }
+            }),
+            new HTMLWebpackPlugin({
+                template: "src/client/views/login.ejs",
+                filename: "views/login.ejs",
+                templateParameters: {
+                    login: "<%= login %>",
+                    ...partialsEjs
+                }
+            }),
+            new HTMLWebpackPlugin({
+                template: "src/client/views/payment.ejs",
+                filename: "views/payment.ejs",
+                templateParameters: {
+                    ...partialsEjs
+                }
+            }),
+            new HTMLWebpackPlugin({
+                template: "src/client/views/about.ejs",
+                filename: "views/about.ejs",
+                templateParameters: {
+                    ...partialsEjs
+                }
+            }),
+        ]
     }
 ]
 

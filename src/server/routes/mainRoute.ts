@@ -6,7 +6,11 @@ import {MainController} from "../controllers/mainController"
 
 
 // Router
-route.get("/", MainController.index);
+route.get("/", MainController.indexPage);
+route.get("/login(/:login)?", MainController.loginPage);
+route.get("/product/clasification/:clasification", MainController.productPage);
+route.get("/about", MainController.aboutPage);
+route.get("/payment", MainController.paymentPage);
 
 
 export default route;
