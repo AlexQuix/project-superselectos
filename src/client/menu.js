@@ -33,7 +33,7 @@ function initMenu(){
     informationAcoout();
     let btnHome = document.querySelector("#cont-menu > #home");
     btnHome.onclick = ()=>{
-        location.href = "http://localhost:3000/";
+        location.href = "/";
     }
     serchKeyWord();
     visibleOptMenuBtn()
@@ -65,7 +65,7 @@ function visibleOptMenuBtn(){
 function addContKeyWord(json){
     let contKeyWord = document.querySelector("#cont-menu > #buscar > #search-result");
     contKeyWord.innerHTML += `
-        <a href="/product/clasification/search?id=${json["_id"]}">${json["name"]}</a>
+        <a href="/api/products/get/${json["_id"]}">${json["name"]}</a>
     `;
 }
 
@@ -80,11 +80,7 @@ function serchKeyWord(){
         /* BUSCAR KEYWORD */
         let serchWord = e.target.value;
         if(serchWord !== ""){
-            let response = await fetch("/products/search-keyword/",{
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: `{"word":"${serchWord}"}`
-            });
+            let response = await fetch("/api/products/keyword/${serchWord}");
             let json = await response.json();
             btnSerch.href = `/product/clasification/search?id=${json[0]["_id"]}`;
             for(let element of json){
@@ -99,7 +95,7 @@ function serchKeyWord(){
 function urlCreateAccount(){
     let btn = document.querySelector("#cont-menu > #user");
     btn.onclick = (e)=>{
-        location.href = "http://localhost:3000/login/signup"
+        location.href = "/login/signup"
     }
 }
 
@@ -109,7 +105,7 @@ function informationAcoout(){
     if(localStorage.getItem("user")){
         btn.onclick = (e)=>{
             if(localStorage.getItem("user")){
-                location.replace("http://localhost:3000/login/informacioncuenta");
+                location.replace("/login/informacioncuenta");
             }else{
                 urlCreateAccount();
             }

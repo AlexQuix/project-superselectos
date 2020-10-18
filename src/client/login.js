@@ -134,7 +134,7 @@ function sendFormSingIn(){
         let user = document.querySelector("#container-login > #cont-signin > div > form #user");
         let password = document.querySelector("#container-login > #cont-signin > div > form #password");
         // COMPROBAR LA INFORMACION
-        let response = await fetch("/login/signin/cheek-data", {
+        let response = await fetch("/api/login/signin/get-user", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: `{"user":"${user.value}", "password": "${password.value}"}`
@@ -164,7 +164,7 @@ function sendFormSingIn(){
 function cheekUserSignUp(){
     let inputUser = document.querySelector("#cont-signup > div > form > #cont-inputs #input-user");
     inputUser.oninput = async function(element){
-        let response = await fetch("/login/signup/cheek-user", {
+        let response = await fetch("/api/login/signup/cheek-user", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: `{"user": "${element.target.value}"}`
@@ -189,18 +189,17 @@ function sendFormSingUp(){
         
         if(form.checkValidity()){
             let formdata = new FormData(form);
-            let response = await fetch("http://localhost:3000/login/signup/create-user", {    
+            let response = await fetch("/api/login/signup/create-user", {    
                 method: "POST",
                 body: formdata
             });
-            let text = await response.text();
-            if(text !== "err"){
-                let json = JSON.parse(text);
+            let json = await response.json();
+            if(json.message !== "err"){
                 if(json !== undefined){
                     for(let prop in json){
                         localStorage.setItem(prop, json[prop]);
                     }
-                    location.href = "http://localhost:3000/";
+                    location.href = "/";
                 }
             }
         }

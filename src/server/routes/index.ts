@@ -1,4 +1,5 @@
 import mainRoute from "./mainRoute";
-import restapiLogin from "./loginRoute";
+import loginRestAPI from "./loginRestAPI";
+import productRestAPI from "./productRestAPI";
 
-export {mainRoute, restapiLogin};
+export {mainRoute, loginRestAPI, productRestAPI};

@@ -20,7 +20,10 @@ class MainController{
         res.render("about")
     }
     static paymentPage(req:Request, res:Response):void{
-        res.sendFile("payment");
+        res.render("payment");
+    }
+    static productAddPage(req:Request, res:Response):void{
+        res.render("product-form")
     }
 }
 

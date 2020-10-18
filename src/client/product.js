@@ -29,20 +29,22 @@ class MoveScroll{
 }
 
 
+// Products
 class Product{
 
-    static async requestProduct(uri, iteration){
+    async requestProduct(uri, iteration){
         let containerProduct = document.querySelector("#container-product #list-product");
-        let response = await fetch(`/products/search-${uri}`, {method: "POST"});
-        let text = await response.text();
-        this.json= JSON.parse(text);
+        let response = await fetch(`/api/products/${uri}`);
+        this.json = await response.json();
         if(iteration){
             for(let element of this.json){
-                let product = Product.createContentProduct(element);
+                debugger;
+                let product = this.createContentProduct(element);
                 containerProduct.innerHTML += product;
+                console.log(product);
             }
         }else{
-            let product = Product.createContentProduct(this.json);
+            let product = this.createContentProduct(this.json);
             containerProduct.innerHTML += product;
         }
 
@@ -56,12 +58,12 @@ class Product{
         btnAddCarrito();
     }
     
-    static createContentProduct(json){
+    createContentProduct(json){
         return `
             <article class="product" id="${json["_id"]}" data-classification="${json["classification"]}">
                 <article>
                     <div id="cont-img">
-                        <img src="/img/product/${json["file"]["name"]}">
+                        <img src="/img/product/${json["image"]}">
                     </div>
                     <div id="cont-text">
                         <header><h1>${json["name"]}</h1></header>
@@ -76,40 +78,43 @@ class Product{
             </article>`;
     }
 
-    static stopLoader(){
+    stopLoader(){
         let contLoader = document.getElementById("container-loader");
         contLoader.style.display = "none"
     }
 
-    static continueLoader(){
+    continueLoader(){
         let contLoader = document.getElementById("container-loader");
         contLoader.style.display = "block"
     }
 }
 
+const ProductClass = new Product();
 let index = 0;
 function startProduct(){
     let listProduct = document.querySelector("#container-product > #list-product");
     let clasification = listProduct.dataset.clasification;
 
-    let id = location.search.match(/((([a-zA-Z0-9])*)$)/i);
+    let property = location.search.match(/(\?[a-z]*)/i);
+    let value = location.search.match(/((([a-zA-Z0-9])*)$)/i);
     if(clasification === "search"){
-        Product.requestProduct(("query/search?id=" + id[0]), false);
-        setTimeout(Product.stopLoader, 1000);
-    }else if(id){
+        ProductClass.requestProduct(("get/" + value[0]), false);
+        setTimeout(ProductClass.stopLoader, 1000);
+    }
+
         if(clasification !== "general"){
-            Product.requestProduct(("clasification/" + clasification), true);
-            setTimeout(Product.stopLoader, 1000);
+            ProductClass.requestProduct(("clasification/" + clasification), true);
+            setTimeout(ProductClass.stopLoader, 1000);
         }else{
             callProduct();
         }
-    }
+    
     showAsProduct();
 }
 function callProduct(){
-    Product.requestProduct("general/", true);
+    ProductClass.requestProduct("clasification/general", true);
     if(index >= 2){
-        Product.stopLoader();
+        ProductClass.stopLoader();
     }else{
         setTimeout(()=>{
             ++index;
@@ -155,9 +160,9 @@ function showAsProduct(){
 
         let input = document.querySelector("#container-product > #container-opt-show-product > form > #clasification-product > select");
         if(!(input.value === "general")){
-            await Product.requestProduct(("clasification/" + input.value), true);
+            await ProductClass.requestProduct(("clasification/" + input.value), true);
         }else{
-            await Product.requestProduct("general/", true);
+            await ProductClass.requestProduct("clasificatio/general/", true);
         }
         switch(list_product.dataset.showas){
             case "column": showAsProductColumn();

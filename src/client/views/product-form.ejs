@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <style>
+        form{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <form>
+            <input type="text" name="name" required placeholder="Nombre">
+            <input type="text" name="wordkey" required placeholder="Palabras clave">
+            <input type="text" name="price" required placeholder="Precio">
+            <input type="text" name="classification" required placeholder="Clasificacion">
+            <textarea name="description" cols="30" rows="10" placeholder="Descripcion"></textarea>
+            <input type="file" name="image" required>
+            <button>Enviar</button>
+        </form>
+    </section>
+
+<script type="text/javascript">
+    function initProductAdd(){
+        let btn = document.querySelector("button");
+        btn.onclick = async function(e){
+            debugger;
+            e.preventDefault();
+            let formdata = createFormdataProductAdd();
+            let response = await fetch("/api/products/create",{
+                method: "POST",
+                body: formdata
+            });
+            let text = await response.text();
+            alert(text);
+        }
+    }
+    function createFormdataProductAdd(){
+        let form = document.querySelector("form");
+        let formdata = new FormData(form);
+
+        return formdata;
+    }
+    window.onload = initProductAdd;
+</script>
+</body>
+</html>

@@ -98,7 +98,8 @@ const Client = [
             new HTMLWebpackPlugin({
                 template: "src/client/views/home.ejs",
                 filename: "views/home.ejs",
-                templateParameters: partialsEjs
+                templateParameters: partialsEjs,
+                inject: false
             }),
             new HTMLWebpackPlugin({
                 template: "src/client/views/product.ejs",
@@ -106,7 +107,8 @@ const Client = [
                 templateParameters: {
                     clasification: "<%= clasification %>",
                     ...partialsEjs
-                }
+                },
+                inject: false
             }),
             new HTMLWebpackPlugin({
                 template: "src/client/views/login.ejs",
@@ -114,21 +116,32 @@ const Client = [
                 templateParameters: {
                     login: "<%= login %>",
                     ...partialsEjs
-                }
+                },
+                inject: false
             }),
             new HTMLWebpackPlugin({
                 template: "src/client/views/payment.ejs",
                 filename: "views/payment.ejs",
                 templateParameters: {
                     ...partialsEjs
-                }
+                },
+                inject: false
             }),
             new HTMLWebpackPlugin({
                 template: "src/client/views/about.ejs",
                 filename: "views/about.ejs",
                 templateParameters: {
                     ...partialsEjs
-                }
+                },
+                inject: false
+            }),
+            new HTMLWebpackPlugin({
+                template: "src/client/views/product-form.ejs",
+                filename: "views/product-form.ejs",
+                templateParameters: {
+                    ...partialsEjs
+                },
+                inject: false
             }),
         ]
     }
