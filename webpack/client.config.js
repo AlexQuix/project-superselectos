@@ -75,7 +75,6 @@ const partialsEjs = {
 const Client = [
     {
         entry: {
-            carrito: "./src/client/carrito.js",
             login: "./src/client/login.js",
             menu: "./src/client/menu.js",
             payment: "./src/client/payment.js",

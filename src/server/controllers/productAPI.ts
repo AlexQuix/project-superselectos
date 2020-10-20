@@ -87,7 +87,7 @@ class ProductRestAPI{
         // : skip = 9;
 
         if(classification === "general"){
-            var cursor = (await database.read("products", {}))//.skip(skip).limit(5).catch(e=>console.log(e));
+            var cursor = (await database.read("products", {}))//.skip(skip).limit(5);
             const send = await cursor.toArray();
             res.json(send);
         }else{

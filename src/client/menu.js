@@ -28,7 +28,7 @@ import "./views/parts/loader.html";
 import "./views/parts/menu.html";
 
 
-
+// INIT PROGRAMING
 function initMenu(){
     informationAcoout();
     let btnHome = document.querySelector("#cont-menu > #home");
@@ -65,7 +65,7 @@ function visibleOptMenuBtn(){
 function addContKeyWord(json){
     let contKeyWord = document.querySelector("#cont-menu > #buscar > #search-result");
     contKeyWord.innerHTML += `
-        <a href="/api/products/get/${json["_id"]}">${json["name"]}</a>
+        <a href="/product/clasification/search?id=${json["_id"]}">${json["wordkey"]}</a>
     `;
 }
 
@@ -80,7 +80,7 @@ function serchKeyWord(){
         /* BUSCAR KEYWORD */
         let serchWord = e.target.value;
         if(serchWord !== ""){
-            let response = await fetch("/api/products/keyword/${serchWord}");
+            let response = await fetch(`/api/products/keyword/${serchWord}`);
             let json = await response.json();
             btnSerch.href = `/product/clasification/search?id=${json[0]["_id"]}`;
             for(let element of json){
@@ -115,26 +115,4 @@ function informationAcoout(){
     }
 }
 
-// MESSAGE ADD PRODUCT
-let totalMsgAddProduct = 0;
-function addMessageMenu(name){
-    let contIndex = document.querySelector("#cont-menu > #container-message > #contador-index");
-    if(indexMsg > 0){
-        contIndex.innerHTML = `${totalMsgAddProduct}`;
-    }else{
-        contIndex.innerHTML = "";
-    }
-
-    let contMessage = document.querySelector("#cont-menu > #container-message");
-    contMessage.innerHTML += `<span id="m${indexMsg++}">Has agregado un producto a tu carrito</span>`;
-    totalMsgAddProduct += 1;
-    setTimeout(()=>{
-        let span = document.querySelector(`#cont-menu > #container-message > #m${--indexMsg}`);
-        span.remove();
-        if(indexMsg == 0){
-            totalMsgAddProduct = 0;
-            contIndex.innerHTML = "";
-        }
-    }, 2000);
-}
 window.onload = initMenu();

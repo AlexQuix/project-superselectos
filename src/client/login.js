@@ -151,7 +151,7 @@ function sendFormSingIn(){
             }else{
                 throw "La contraseña o el usuario son incorrectos";
             }
-            location.href = "/";
+            location.href = "/login/informacioncuenta";
         }
         catch (e){
             contAlert((json.message !== "err"), user, "signin", e);
@@ -199,7 +199,7 @@ function sendFormSingUp(){
                     for(let prop in json){
                         localStorage.setItem(prop, json[prop]);
                     }
-                    location.href = "/";
+                    location.href = "/login/informacioncuenta";
                 }
             }
         }

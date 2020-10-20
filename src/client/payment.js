@@ -51,7 +51,7 @@ function contListCard(idSection){
 }
 
 // CONTAINER INFORMATION PURCHASE PRODUCTS
-function contInfPurchase(){
+async function contInfPurchase(){
     let contUsedCard = document.querySelector("#container-payment > #container-inf-purchase > #used-card");
     contUsedCard.innerHTML = $cardPay.svg;
 
@@ -63,7 +63,7 @@ function contInfPurchase(){
 
     for(let product of json){
         if(product){
-            searchProduct(product.id, product.clasificacion);
+            await searchProductId(product.id);
         }
     }
 
@@ -82,12 +82,8 @@ function addContentInfPurchase(name, price){
 }
 
 
-async function searchProduct(id){
-    let response = await fetch("/products/search-product/", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: `{"id": "${id}"}`
-    });
+async function searchProductId(id){
+    let response = await fetch(`/api/products/get/${id}`);
     let product = await response.json();
     addContentInfPurchase(product.name, product.price);
 }
