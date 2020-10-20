@@ -44,7 +44,7 @@ const HTMLLoader = {
 
 };
 const FileLoader = {
-    test: /\.(jpg|png|jpeg)$/,
+    test: /\.(jpg|png|jpeg|mp4)$/,
     use: [
         {
             loader: "file-loader",
@@ -78,7 +78,8 @@ const Client = [
             login: "./src/client/login.js",
             menu: "./src/client/menu.js",
             payment: "./src/client/payment.js",
-            product: "./src/client/product.js"
+            product: "./src/client/product.js",
+            carrito: "./src/client/carrito.js"
         },
         output: {
             publicPath: "/",

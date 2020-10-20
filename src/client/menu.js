@@ -28,6 +28,10 @@ import "./views/parts/loader.html";
 import "./views/parts/menu.html";
 
 
+// IMPORT VIDEO
+import "./video/publicidad.mp4"
+
+
 // INIT PROGRAMING
 function initMenu(){
     informationAcoout();
@@ -37,6 +41,7 @@ function initMenu(){
     }
     serchKeyWord();
     visibleOptMenuBtn()
+    chageDesingMenu();
 }
 
 
@@ -49,12 +54,12 @@ function visibleOptMenuBtn(){
     btnOptMenu.onclick = ()=>{
         if(btnOptMenu.dataset.opt === "true"){
             body.style.overflowY = "hidden";
-            contOptMenu.style.display = "grid";
+            contOptMenu.style.left = "0%";
             btnOptMenu.dataset.opt = "false";
         }
         btnClose.onclick = ()=>{
             body.style.overflowY = "visible";
-            contOptMenu.style.display = "none";
+            contOptMenu.style.left = "-100%";
             btnOptMenu.dataset.opt = "true";
         }
     }
@@ -115,4 +120,76 @@ function informationAcoout(){
     }
 }
 
-window.onload = initMenu();
+// CHANGE DESING THE MENU
+function chageDesingMenu(){
+    let contMenu = document.getElementById("cont-menu").style;
+    let btnUserSvg = document.querySelector("#cont-menu > #user > #btn-user > svg");
+    let btnMenuSvg = document.querySelector("#cont-menu > #menu > #btn-menu > svg");
+    let btnUserP = document.querySelector("#cont-menu > #user > #btn-user > p");
+    let btnMenuP = document.querySelector("#cont-menu > #menu > #btn-menu > p");
+    let inputSearch = document.querySelector("#cont-menu > #buscar > #buscar-search > input").style;
+    let btnSearch = document.querySelector("#cont-menu > #buscar > #buscar-search > #btn-serch").style;
+    let homeSvg = document.querySelector("#cont-menu > #home svg").style;
+    let contPublicidad = document.querySelector("#container-publicidad");
+    
+    if(location.pathname === "/"){
+        document.onscroll = changeColor;
+        function changeColor(){
+            if(scrollY >= contPublicidad.clientHeight - 60){
+                contMenu.background = "rgba(255, 255, 255)";
+                contMenu.boxShadow = "3px 3px 15px rgb(94, 94, 94)";
+            
+                btnUserSvg.style.fill = "#759126";
+                btnMenuSvg.style.fill = "#759126";
+                btnUserP.style.color = "#759126";
+                btnMenuP.style.color = "#759126";
+        
+                inputSearch.background = "rgb(236, 236, 236)";
+                inputSearch.color = "#759126";
+            
+                btnSearch.background = "#759126";
+                homeSvg.fill = "#759126";
+            }else{
+                contMenu.background = "rgba(255, 255, 255, 0)";
+                contMenu.boxShadow = "none";
+            
+                btnUserSvg.style.fill = "#fff";
+                btnMenuSvg.style.fill = "#fff";
+                btnUserP.style.color = "#fff";
+                btnMenuP.style.color = "#fff";
+        
+                inputSearch.background = "rgb(0, 0, 0, 32%)";
+                inputSearch.color = "#fff";
+            
+                btnSearch.background = "#757575";
+                homeSvg.fill = "#fff";
+            }
+            
+        }
+        changeColor();
+
+        document.querySelector("#cont-menu > #menu").onmouseenter = ()=>{
+            btnMenuSvg.style.fill = "#fff";
+            btnMenuP.style.color = "#fff";
+        }
+        document.querySelector("#cont-menu > #menu").onmouseleave = changeColor;
+
+        document.querySelector("#cont-menu > #user").onmouseenter = ()=>{
+            btnUserSvg.style.fill = "#fff";
+            btnUserP.style.color = "#fff";
+        }
+        document.querySelector("#cont-menu > #user").onmouseleave = changeColor;
+
+        document.querySelector("#cont-menu > #home").onmouseenter = ()=>{
+            homeSvg.fill = "#fff";
+        }
+        document.querySelector("#cont-menu > #home").onmouseleave = changeColor;
+
+        document.querySelector("#cont-menu > #buscar > #buscar-search > #btn-serch").onmouseenter = ()=>{
+            btnSearch.background = "rgba(11,156,77,1)";
+        }
+        document.querySelector("#cont-menu > #buscar > #buscar-search > #btn-serch").onmouseleave = changeColor;
+    }
+};
+
+window.onload = initMenu;
