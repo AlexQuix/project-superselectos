@@ -10,7 +10,7 @@
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: rgba(106,61,53,1);
+    background: #8cb814;
     box-shadow: 3px 3px 10px rgb(88, 88, 88);
     transition: 1s;
     box-sizing: content-box;
@@ -37,7 +37,7 @@
 
 
 #container-carrito:hover{
-    background: #5e7719;
+    background: rgba(11,156,77,1);
 }
 #container-carrito:hover > #carrito-logo > svg{
     transform: scale(1.4);

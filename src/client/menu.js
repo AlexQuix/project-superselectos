@@ -133,9 +133,9 @@ function chageDesingMenu(){
     let contPublicidad = document.querySelector("#container-publicidad");
     
     if(location.pathname === "/"){
-        document.onscroll = changeColor;
         function changeColor(){
-            if(scrollY >= contPublicidad.clientHeight - 60){
+            
+            if(scrollY >= contPublicidad.clientHeight - 100){
                 contMenu.background = "rgba(255, 255, 255)";
                 contMenu.boxShadow = "3px 3px 15px rgb(94, 94, 94)";
             
@@ -149,6 +149,8 @@ function chageDesingMenu(){
             
                 btnSearch.background = "#759126";
                 homeSvg.fill = "#759126";
+
+                controlsVideoPublicidadPause();
             }else{
                 contMenu.background = "rgba(255, 255, 255, 0)";
                 contMenu.boxShadow = "none";
@@ -166,7 +168,7 @@ function chageDesingMenu(){
             }
             
         }
-        changeColor();
+        document.onscroll = changeColor;
 
         document.querySelector("#cont-menu > #menu").onmouseenter = ()=>{
             btnMenuSvg.style.fill = "#fff";
@@ -189,7 +191,23 @@ function chageDesingMenu(){
             btnSearch.background = "rgba(11,156,77,1)";
         }
         document.querySelector("#cont-menu > #buscar > #buscar-search > #btn-serch").onmouseleave = changeColor;
+
+        changeColor();
+        controlsVideoPublicidadPlay();
     }
 };
+function controlsVideoPublicidadPlay(){
+    let video = document.querySelector("video");
+    let contControlsPlay = document.querySelector("#container-publicidad > #cont-controls-play");
+    contControlsPlay.onclick = async ()=>{
+        document.querySelector("#container-publicidad > #cont-controls-play").style.display = "none";
+        await video.play();
+    }
+}
+async function controlsVideoPublicidadPause(){
+    let video = document.querySelector("video");
+    document.querySelector("#container-publicidad > #cont-controls-play").style.display = "grid";
+    await video.pause();
+}
 
-window.onload = initMenu;
+window.addEventListener("DOMContentLoaded", initMenu);

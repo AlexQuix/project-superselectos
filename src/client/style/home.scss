@@ -14,13 +14,31 @@
     height: 100vh;
     background: #000000;
     filter: brightness(0.5);
+    overflow: hidden;
 }
 #container-publicidad > video{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
+#container-publicidad > #cont-controls-play{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: grid;
+    place-items: center;
+}
+#container-publicidad > #cont-controls-play > svg{
+    width: 120px;
+    height: 120px;
+    fill: rgb(58, 255, 176);
+    transition: 0.5s;
+}
+#container-publicidad > #cont-controls-play > svg:hover{
+    transform: scale(1.2);
+}
 
 
 

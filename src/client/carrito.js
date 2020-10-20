@@ -1,4 +1,6 @@
-let indexMsg = 0, arrayProductAnimations = [], $index = 0;;
+window.indexMsg = 0, 
+window.arrayProductAnimations = [], 
+window.$index = 0;;
 class CarritoClass{
 
     // ADD ID AND SEARCH PRODUCT
@@ -137,7 +139,7 @@ class CarritoClass{
 };
 
 
-const Carrito = new CarritoClass();
+window.Carrito = new CarritoClass();
 
 // FETCH SEARCH PRODUCT
 async function requestFetch(product, index){
@@ -194,8 +196,8 @@ function pay(){
 
 
 // MESSAGE ADD PRODUCT
-let $totalMsgAddProduct = 0;
-function addMessageMenu(name){
+window.$totalMsgAddProduct = 0;
+window.addMessageMenu = function(name){
     let contIndex = document.querySelector("#cont-menu > #container-message > #contador-index");
     if(indexMsg > 0){
         contIndex.innerHTML = `${$totalMsgAddProduct}`;
