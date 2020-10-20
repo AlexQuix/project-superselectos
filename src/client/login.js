@@ -183,10 +183,10 @@ function cheekPasswordSignUp(){
     }
 };
 function sendFormSingUp(){
-    let form = document.querySelector("#container-login > #cont-signup > div > form");
     let btn = document.querySelector("#container-login > #cont-signup > div > form > #btns button");
     btn.onclick = async function(e){
-        
+        e.preventDefault();
+        let form = document.querySelector("#container-login > #cont-signup > div > form");
         if(form.checkValidity()){
             let formdata = new FormData(form);
             let response = await fetch("/api/login/signup/create-user", {    
@@ -195,17 +195,19 @@ function sendFormSingUp(){
             });
             let json = await response.json();
             if(json.message !== "err"){
-                if(json !== undefined){
-                    for(let prop in json){
+                alert("Exito! se han guardado los datos");
+                for(let prop in json){
+                    if(prop !== "message"){
                         localStorage.setItem(prop, json[prop]);
                     }
-                    location.href = "/login/informacioncuenta";
                 }
+                location.href = "/login/informacioncuenta";
+            }else{
+                alert("Ha ocurrido un error al agregar los datos a la base de datos");
             }
+        }else{
+            alert("Rellena correctamente el formulario");
         }
-
-        e.preventDefault();
-        
     }
 }
 
